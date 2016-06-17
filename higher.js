@@ -12,9 +12,7 @@ console.assert(map([1, 2], function(int1){return int1 + 5})[0] === 6 && map([1, 
 
 function map(arr, callback){
 	var result = [];
-	for(var i = 0; i < arr.length; i++){
-		result.push(callback(arr[i]));
-	}
+	forEach(arr, function(thing){result.push(callback(thing))});
 	return result;
 }
 
@@ -24,9 +22,8 @@ console.assert(reduce([1, 2, 3], function(int1, int2){return int1 + int2}) === 6
 
 function reduce(arr, callback){
 	var result = arr[0];
-	for(var i = 1; i < arr.length; i++){
-		result = callback(result, arr[i]);
-	}
+	arr.shift();
+	forEach(arr, function(thing){result = callback(result, thing)});
 	return result;
 }
 
@@ -36,11 +33,11 @@ console.assert(filter([1, 5, 1, 6, 1, 7], function(int1){return int1 >= 5}));
 
 function filter(arr, callback){
 	var result = [];
-	for(var i = 0; i < arr.length; i++){
-		if(callback(arr[i])){
-			result.push(arr[i]);
+	forEach(arr, function(thing){
+		if(callback(thing)){
+			result.push(thing);
 		}
-	}
+	})
 	return result;
 }
 
